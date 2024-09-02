@@ -1,0 +1,3 @@
+Coverage for LSTM: 0.78
+Coverage for CNN: 0.69
+Coverage for Transformer: 0.87

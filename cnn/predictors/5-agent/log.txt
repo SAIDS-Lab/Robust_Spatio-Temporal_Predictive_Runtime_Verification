@@ -1,0 +1,1 @@
+CNN trained with 400 epochs.
