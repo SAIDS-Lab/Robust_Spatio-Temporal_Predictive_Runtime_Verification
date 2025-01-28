@@ -140,7 +140,7 @@ def main():
     """
     Train an LSTM Model for each of the dimension.
     """
-    # trained_lstm_models = train_lstm_models(x_train_whole, y_train_whole) # Uncomment if training the LSTM models.
+    trained_lstm_models = train_lstm_models(x_train_whole, y_train_whole) # Uncomment if training the LSTM models.
     # Load the trained lstm models.
     print("=== Loading the LSTM Model ===")
     trained_lstm_models = dict()
