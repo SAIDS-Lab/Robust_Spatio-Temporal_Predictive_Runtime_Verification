@@ -65,6 +65,6 @@ num_experiments = 50
 delta = 0.2
 indirect_illustration_variant_1_tau = 120
 
-font_size = 20
+font_size = 18
 label_size = 24
-legend_size = 10
+legend_size = 12
