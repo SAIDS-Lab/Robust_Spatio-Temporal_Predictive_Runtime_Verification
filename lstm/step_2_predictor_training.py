@@ -91,10 +91,10 @@ def plot_predictions_2d(ground_history, pred_history, my_title, file_name):
     for a in range(params.num_agents):
         x = [s[0] for s in ground_history[a]]
         y = [s[1] for s in ground_history[a]]
-        plt.plot(x, y, label = params.legend[a], color = params.colors[a])
+        plt.plot(x, y, label = params.legend[a] + "\n(Ground Truth)", color = params.colors[a])
         x = [s[0] for s in pred_history[a]]
         y = [s[1] for s in pred_history[a]]
-        plt.plot(x, y, linestyle="--", color = params.colors[a])
+        plt.plot(x, y, label = params.legend[a] + "\n(Predicted)", linestyle="--", color = params.colors[a])
     # Draw the obstacles.
     for obstacle in params.obstacles:
         plt.plot([obstacle[0][0], obstacle[1][0]], [obstacle[0][1], obstacle[1][1]], 'bo', linestyle = "solid")
@@ -112,7 +112,7 @@ def plot_predictions_2d(ground_history, pred_history, my_title, file_name):
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("X", fontsize = params.font_size)
     plt.ylabel("Y", fontsize = params.font_size)
-    plt.legend(fontsize=params.legend_size)
+    plt.legend(fontsize=params.legend_size, loc="center left", bbox_to_anchor=(1, 0.5))
     plt.tight_layout()
     if my_title != "":
         plt.title(my_title + " " + f"with Ground Robustness of {np.round(robustness_ground, 2)}" + f" and Predicted Robustness of {np.round(robustness_pred, 2)}", fontsize = 8)
@@ -140,7 +140,7 @@ def main():
     """
     Train an LSTM Model for each of the dimension.
     """
-    trained_lstm_models = train_lstm_models(x_train_whole, y_train_whole) # Uncomment if training the LSTM models.
+    # trained_lstm_models = train_lstm_models(x_train_whole, y_train_whole) # Uncomment if training the LSTM models.
     # Load the trained lstm models.
     print("=== Loading the LSTM Model ===")
     trained_lstm_models = dict()

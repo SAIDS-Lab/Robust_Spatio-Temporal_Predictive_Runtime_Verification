@@ -67,4 +67,4 @@ indirect_illustration_variant_1_tau = 120
 
 font_size = 20
 label_size = 24
-legend_size = 15
+legend_size = 10
