@@ -53,7 +53,7 @@ def main():
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("Coverage", fontsize=params.font_size)
     plt.ylabel("Frequency", fontsize=params.font_size)
-    plt.legend(fontsize=params.legend_size)
+    plt.legend(fontsize="large")
     plt.tight_layout()
     plt.savefig(f"plots/{params.num_agents}-agent/STL/stl_direct_coverage_histogram" + params.plotting_saving_format)
     plt.show()
@@ -68,17 +68,17 @@ def main():
     x_data = [i for i in range(len(direct_ground_robustnesses))]
     sorted_ground_robustnesses, sorted_worst_robustnesses_vanilla, sorted_worst_robustnesses_robust = zip(
         *sorted(zip(direct_ground_robustnesses, direct_worst_robustnesses_vanilla, direct_worst_robustnesses_robust)))
-    dot_sizes = [5 for i in range(len(x_data))]
-    plt.scatter(x_data, sorted_ground_robustnesses, s=dot_sizes, color='r', label='$\\rho^\phi(X, \\tau_0))$')
-    plt.scatter(x_data, sorted_worst_robustnesses_vanilla, s=dot_sizes, color='b',
+    dot_sizes = [10 for i in range(len(x_data))]
+    plt.scatter(x_data, sorted_ground_robustnesses, s=dot_sizes, marker = "x", linewidths= 1.5, color='r', label='$\\rho^\phi(X, \\tau_0))$')
+    plt.scatter(x_data, sorted_worst_robustnesses_vanilla, s=dot_sizes, marker = "x", linewidths= 1.5, color='b',
                 label='$\\rho^*$ from the Accurate Method')
-    plt.scatter(x_data, sorted_worst_robustnesses_robust, s=dot_sizes, color='g',
+    plt.scatter(x_data, sorted_worst_robustnesses_robust, s=dot_sizes, marker = "x", linewidths= 1.5, color='g',
                 label='$\\rho^*$ from the Robust Accurate Method')
     plt.tick_params("x", labelsize=params.label_size)
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("Sample (Sorted on $\\rho^\phi(X, \\tau_0)$)", fontsize=params.font_size)
     plt.ylabel("Robust Semantics Value", fontsize=params.font_size)
-    plt.legend(fontsize=params.legend_size)
+    plt.legend(fontsize="large")
     plt.tight_layout()
     plt.savefig(f"plots/{params.num_agents}-agent/STL/stl_direct_robustness_scatter" + params.plotting_saving_format)
     plt.show()
@@ -183,7 +183,7 @@ def main():
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("Coverage", fontsize=params.font_size)
     plt.ylabel("Frequency", fontsize=params.font_size)
-    plt.legend(fontsize=params.legend_size)
+    plt.legend(fontsize="large")
     plt.tight_layout()
     plt.savefig(f"plots/{params.num_agents}-agent/STL/stl_indirect_coverage_histogram" + params.plotting_saving_format)
     plt.show()
@@ -207,22 +207,22 @@ def main():
         *sorted(zip(indirect_ground_robustnesses, indirect_worst_robustnesses_vanilla,
                     indirect_worst_robustnesses_robust, hybrid_worst_robustnesses_vanilla,
                     hybrid_worst_robustnesses_robust)))
-    dot_sizes = [5 for i in range(len(x_data))]
-    plt.scatter(x_data, sorted_ground_indirect_robustnesses, s=dot_sizes, color='r',
+    dot_sizes = [10 for i in range(len(x_data))]
+    plt.scatter(x_data, sorted_ground_indirect_robustnesses, s=dot_sizes, color='r',marker = "x", linewidths= 1.5,
                 label='$\\rho^\phi(X, \\tau_0))$')
-    plt.scatter(x_data, sorted_worst_indirect_robustnesses_vanilla, s=dot_sizes, color='b',
+    plt.scatter(x_data, sorted_worst_indirect_robustnesses_vanilla, s=dot_sizes, color='b',marker = "x", linewidths= 1.5,
                 label='$\\rho^*$ (Interpretable Method Variant I)')
-    plt.scatter(x_data, sorted_worst_indirect_robustnesses_robust, s=dot_sizes, color='g',
+    plt.scatter(x_data, sorted_worst_indirect_robustnesses_robust, s=dot_sizes, color='g',marker = "x", linewidths= 1.5,
                 label='$\\rho^*$ (Robust Interpretable Method Variant I)')
-    plt.scatter(x_data, sorted_worst_hybrid_robustnesses_vanilla, s=dot_sizes, color='m',
+    plt.scatter(x_data, sorted_worst_hybrid_robustnesses_vanilla, s=dot_sizes, color='m',marker = "x", linewidths= 1.5,
                 label="$\\rho^*$ (Interpretable Method Variant II)")
-    plt.scatter(x_data, sorted_worst_hybrid_robustnesses_robust, s=dot_sizes, color='k',
+    plt.scatter(x_data, sorted_worst_hybrid_robustnesses_robust, s=dot_sizes, color='k',marker = "x", linewidths= 1.5,
                 label="$\\rho^*$ (Robust Interpretable Method Variant II)")
     plt.tick_params("x", labelsize=params.label_size)
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("Sample (Sorted on $\\rho^\phi(X, \\tau_0))$)", fontsize=params.font_size)
-    plt.ylabel("Robust Semantics Value", fontsize=params.font_size)
-    plt.legend()
+    plt.ylabel("Robust Semantics Value", fontsize="large")
+    plt.legend(fontsize = "large")
     plt.tight_layout()
     plt.savefig(f"plots/{params.num_agents}-agent/STL/stl_hybrid_robustness_scatter" + params.plotting_saving_format)
     plt.show()
