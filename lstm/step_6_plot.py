@@ -54,56 +54,67 @@ def main():
     plt.savefig(f"plots/{params.num_agents}-agent/direct_robustness_scatter" + params.plotting_saving_format)
     plt.show()
 
-    # Plot the histogram of nonconformity scores for the indirect method.
+    # Load data for the indirect method.
     with open(f"experiment_results/{params.num_agents}-agent/indirect_nonconformity_list.json", "r") as f:
         indirect_nonconformity_list = json.load(f)
     with open(f"experiment_results/{params.num_agents}-agent/c_indirect.txt", "r") as f:
         c_indirect = float(f.read())
     with open(f"experiment_results/{params.num_agents}-agent/c_tilde_indirect.txt", "r") as f:
         c_tilde_indirect = float(f.read())
-    min_value = min(indirect_nonconformity_list)
-    max_value = max(indirect_nonconformity_list)
-    y, x = np.histogram(indirect_nonconformity_list,
-                        bins=np.arange(min_value, max_value + (max_value - min_value) / num_bins,
-                                       (max_value - min_value) / num_bins))
-    sns.lineplot(x=x[:-1], y=y)
-    plt.fill_between(x=x[:-1], y1=y, y2=0, alpha=0.3)
-    plt.axvline(x=c_indirect, color='b', label='$C$')
-    plt.axvline(x=c_tilde_indirect, color='g', label="$\\tilde{C}$")
-    plt.tick_params("x", labelsize=params.label_size)
-    plt.tick_params("y", labelsize=params.label_size)
-    plt.xlabel("Nonconformity Score", fontsize=params.font_size)
-    plt.ylabel("Frequency", fontsize=params.font_size)
-    plt.legend(fontsize=params.legend_size)
-    plt.tight_layout()
-    plt.savefig(f"plots/{params.num_agents}-agent/indirect_nonconformity_histogram" + params.plotting_saving_format)
-    plt.show()
 
-
-    # Plot the histogram of nonconformity scores for the hybrid method.
+    # Load data for the hybrid method.
     with open(f"experiment_results/{params.num_agents}-agent/hybrid_nonconformity_list.json", "r") as f:
         hybrid_nonconformity_list = json.load(f)
     with open(f"experiment_results/{params.num_agents}-agent/c_hybrid.txt", "r") as f:
         c_hybrid = float(f.read())
     with open(f"experiment_results/{params.num_agents}-agent/c_tilde_hybrid.txt", "r") as f:
         c_tilde_hybrid = float(f.read())
-    min_value = min(hybrid_nonconformity_list)
-    max_value = max(hybrid_nonconformity_list)
-    y, x = np.histogram(hybrid_nonconformity_list,
-                        bins=np.arange(min_value, max_value + (max_value - min_value) / num_bins,
-                                       (max_value - min_value) / num_bins))
-    sns.lineplot(x=x[:-1], y=y)
-    plt.fill_between(x=x[:-1], y1=y, y2=0, alpha=0.3)
-    plt.axvline(x=c_hybrid, color='b', label='$C$')
-    plt.axvline(x=c_tilde_hybrid, color='g', label="$\\tilde{C}$")
+
+    # Create bins for the indirect method.
+    min_indirect = min(indirect_nonconformity_list)
+    max_indirect = max(indirect_nonconformity_list)
+    bin_width_indirect = (max_indirect - min_indirect) / num_bins
+    bins_indirect = np.arange(min_indirect, max_indirect + bin_width_indirect, bin_width_indirect)
+    y_indirect, x_indirect = np.histogram(indirect_nonconformity_list, bins=bins_indirect)
+
+    # Create bins for the hybrid method.
+    min_hybrid = min(hybrid_nonconformity_list)
+    max_hybrid = max(hybrid_nonconformity_list)
+    bin_width_hybrid = (max_hybrid - min_hybrid) / num_bins
+    bins_hybrid = np.arange(min_hybrid, max_hybrid + bin_width_hybrid, bin_width_hybrid)
+    y_hybrid, x_hybrid = np.histogram(hybrid_nonconformity_list, bins=bins_hybrid)
+
+    # Create a new figure.
+    plt.figure()
+
+    # Plot the indirect method histogram (Equation (14)) in blue.
+    sns.lineplot(x=x_indirect[:-1], y=y_indirect, color='blue')
+    plt.fill_between(x_indirect[:-1], y_indirect, label="Eq. (14) $R^{(i)}$", alpha=0.3, color='blue')
+
+    # Plot the hybrid method histogram (Equation (16)) in orange.
+    sns.lineplot(x=x_hybrid[:-1], y=y_hybrid, color='orange')
+    plt.fill_between(x_hybrid[:-1], y_hybrid, label="Eq. (16) $R^{(i)}$", alpha=0.3, color='orange')
+
+    # Add vertical lines for the indirect method.
+    plt.axvline(x=c_indirect, color='blue', linestyle='--', label="Variant I C")
+    plt.axvline(x=c_tilde_indirect, color='blue', linestyle=':', label="Variant I $\\tilde{C}$")
+
+    # Add vertical lines for the hybrid method.
+    plt.axvline(x=c_hybrid, color='orange', linestyle='--', label="Variant II C")
+    plt.axvline(x=c_tilde_hybrid, color='orange', linestyle=':', label="Variant II $\\tilde{C}$")
+
+    # Formatting the plot.
     plt.tick_params("x", labelsize=params.label_size)
     plt.tick_params("y", labelsize=params.label_size)
     plt.xlabel("Nonconformity Score", fontsize=params.font_size)
-    plt.ylabel("Frequency", fontsize = params.font_size)
+    plt.ylabel("Frequency", fontsize=params.font_size)
     plt.legend(fontsize=params.legend_size)
     plt.tight_layout()
-    plt.savefig(f"plots/{params.num_agents}-agent/hybrid_nonconformity_histogram" + params.plotting_saving_format)
+
+    # Save and display the plot.
+    plt.savefig(f"plots/{params.num_agents}-agent/superimposed_nonconformity_histogram" + params.plotting_saving_format)
     plt.show()
+
 
     # Plot the scatter plot of robustnesses for the indirect method.
     with open(f"experiment_results/{params.num_agents}-agent/indirect_ground_robustnesses.json", "r") as f:
