@@ -68,5 +68,7 @@ The generated results (in terms of plots and txt files) are then contained in `l
 ### Notes
 Note that the load model from the old version of tensorflow was deprecated. Please retrain the predictors to run the experiments (in which case slightly different experimental results can be expected). If you run `step_12_compare_predictors.py` you may also expect different results than those found in the paper since we retrained the LSTM predictor in the updated github repo.
 
+Our transformer baseline is adapted from the Keras exaple “Timeseries classification with a Transformer model” (keras-io): https://keras.io/examples/timeseries/timeseries_classification_transformer/. Original example © Keras authors (Apache-2.0);
+
 ## Contact Information
 [Yiqi (Nick) Zhao](https://zhaoy37.github.io/) is a PhD Student for Computer Science at the University of Southern California. For any questions, suggestions, or interests in collaboration, please feel free to contact us at yiqizhao@usc.edu.
